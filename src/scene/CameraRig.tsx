@@ -19,7 +19,7 @@ export function CameraRig() {
   const prev = useRef<CameraMode>("intro");
   const tmp = useRef(new Vector3());
   const target = useMemo(() => mk(), []);
-  const nodes = useMemo(() => Array.from({ length: 9 }, mk), []);
+  const nodes = useMemo(() => Array.from({ length: WORLD_IDS.length + 4 }, mk), []);
 
   useFrame((state, dt) => {
     const cam = camera as PerspectiveCamera;
@@ -77,11 +77,13 @@ export function CameraRig() {
       nodes[1].look.set(0, 8, 0);
       nodes[2].pos.set(0, 46, 64 * fit);
       nodes[2].look.set(0, 0, 0);
-      for (let i = 0; i < 5; i++) focusRig(i, nodes[3 + i], { mobile: s.isMobile, shift: s.isMobile, sway: 0 });
-      nodes[8].pos.set(0, 24, 46 * fit);
-      nodes[8].look.set(0, 5, 0);
-      const p = MathUtils.clamp(rt.storyP, 0, 1) * 8;
-      const i = Math.min(7, Math.floor(p));
+      for (let i = 0; i < WORLD_IDS.length; i++) focusRig(i, nodes[3 + i], { mobile: s.isMobile, shift: s.isMobile, sway: 0 });
+      const finalNode = WORLD_IDS.length + 3;
+      nodes[finalNode].pos.set(0, 24, 46 * fit);
+      nodes[finalNode].look.set(0, 5, 0);
+      const segments = WORLD_IDS.length + 3;
+      const p = MathUtils.clamp(rt.storyP, 0, 1) * segments;
+      const i = Math.min(segments - 1, Math.floor(p));
       const f = ss(p - i, 0.3, 0.8);
       target.pos.lerpVectors(nodes[i].pos, nodes[i + 1].pos, f);
       target.look.lerpVectors(nodes[i].look, nodes[i + 1].look, f);

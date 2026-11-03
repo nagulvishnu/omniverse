@@ -502,10 +502,62 @@ export function NexdrivePreview() {
   );
 }
 
+/* ═══════════════ NEXUS ═══════════════ */
+export function NexusPreview() {
+  const engine = useRef<Group>(null);
+  const rings = useRef<Group>(null);
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime;
+    if (engine.current) {
+      engine.current.rotation.set(t * 0.3, t * 0.45, t * 0.18);
+      engine.current.position.y = Math.sin(t * 1.4) * 0.12;
+    }
+    if (rings.current) {
+      rings.current.rotation.set(t * 0.12, -t * 0.16, t * 0.25);
+    }
+  });
+  return (
+    <group>
+      <group ref={rings}>
+        {[2.8, 3.6].map((radius, i) => (
+          <mesh key={radius} rotation={[i * 0.8, i * 0.55, i * 0.45]}>
+            <torusGeometry args={[radius, 0.07, 6, 72]} />
+            <meshBasicMaterial color={i ? "#c07dff" : "#8fa6ff"} {...basic} />
+          </mesh>
+        ))}
+      </group>
+      <group ref={engine}>
+        <mesh>
+          <icosahedronGeometry args={[1.35, 1]} />
+          <meshStandardMaterial color="#26305a" metalness={0.9} roughness={0.18} emissive="#8fa6ff" emissiveIntensity={1.2} />
+        </mesh>
+        <mesh>
+          <octahedronGeometry args={[0.95, 0]} />
+          <meshBasicMaterial color="#e2e8ff" wireframe {...basic} />
+        </mesh>
+        <mesh>
+          <sphereGeometry args={[0.28, 16, 12]} />
+          <meshBasicMaterial color="#ffffff" {...basic} />
+        </mesh>
+      </group>
+      {Array.from({ length: 4 }, (_, i) => {
+        const angle = (i / 4) * Math.PI * 2;
+        return (
+          <mesh key={i} position={[Math.cos(angle) * 4.1, Math.sin(angle * 2) * 0.5, Math.sin(angle) * 0.7]}>
+            <sphereGeometry args={[0.16, 10, 8]} />
+            <meshBasicMaterial color={i % 2 ? "#c07dff" : "#dce4ff"} {...basic} />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+}
+
 export const PREVIEWS: Record<string, () => React.JSX.Element> = {
   aether: AetherPreview,
   abyss: AbyssPreview,
   neoverse: NeoversePreview,
   mythora: MythoraPreview,
   nexdrive: NexdrivePreview,
+  nexus: NexusPreview,
 };

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" fill="none">
+  <defs>
+    <linearGradient id="space" x1="120" y1="45" x2="1050" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111833"/>
+      <stop offset=".52" stop-color="#090d1e"/>
+      <stop offset="1" stop-color="#03050d"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="360" y1="210" x2="850" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8FA6FF"/>
+      <stop offset=".5" stop-color="#C07DFF"/>
+      <stop offset="1" stop-color="#39B6FF"/>
+    </linearGradient>
+    <radialGradient id="core" cx="0" cy="0" r="1" gradientTransform="matrix(0 185 -185 0 600 355)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF0FF" stop-opacity=".9"/>
+      <stop offset=".18" stop-color="#A9B8FF" stop-opacity=".65"/>
+      <stop offset="1" stop-color="#7A8CFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="250" y="70" width="700" height="570" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <path fill="url(#space)" d="M0 0h1200v700H0z"/>
+  <g fill="#DCE4FF">
+    <circle cx="130" cy="135" r="2"/><circle cx="1040" cy="124" r="2"/>
+    <circle cx="970" cy="566" r="1.5"/><circle cx="210" cy="520" r="1.5"/>
+    <circle cx="810" cy="90" r="1"/><circle cx="420" cy="600" r="1"/>
+    <circle cx="1100" cy="330" r="1.5"/><circle cx="80" cy="350" r="1"/>
+  </g>
+  <circle cx="600" cy="355" r="175" fill="url(#core)"/>
+  <g stroke="url(#ring)" stroke-linecap="round">
+    <ellipse cx="600" cy="355" rx="310" ry="118" stroke-width="14" opacity=".22" filter="url(#glow)" transform="rotate(-24 600 355)"/>
+    <ellipse cx="600" cy="355" rx="310" ry="118" stroke-width="3" opacity=".9" transform="rotate(-24 600 355)"/>
+    <ellipse cx="600" cy="355" rx="250" ry="95" stroke-width="2" opacity=".65" transform="rotate(58 600 355)"/>
+    <ellipse cx="600" cy="355" rx="180" ry="68" stroke-width="1.5" opacity=".55" transform="rotate(-70 600 355)"/>
+  </g>
+  <path d="M600 215 690 355 600 495 510 355z" fill="#121A38" stroke="#DCE4FF" stroke-opacity=".85" stroke-width="2"/>
+  <path d="m600 248 68 107-68 107-68-107z" fill="#8FA6FF" fill-opacity=".12" stroke="url(#ring)" stroke-width="2"/>
+  <circle cx="600" cy="355" r="26" fill="#EAF0FF"/>
+  <circle cx="600" cy="355" r="48" stroke="#C07DFF" stroke-opacity=".7" stroke-width="2"/>
+  <path d="M600 94v105M600 511v95M338 355H230m632 0H862" stroke="url(#ring)" stroke-opacity=".55" stroke-width="2"/>
+</svg>

@@ -18,7 +18,7 @@ export const LOAD_STAGES: { key: string; label: string }[] = [
   { key: "webgl", label: "Initialising renderer" },
   { key: "registry", label: "Validating world registry" },
   { key: "hub", label: "Constructing the central hub" },
-  { key: "portals", label: "Opening five dimensional portals" },
+  { key: "portals", label: "Opening six dimensional portals" },
   { key: "shaders", label: "Compiling portal shaders" },
 ];
 
@@ -84,7 +84,7 @@ export const useStore = create<State>(() => ({
   introCaption: "",
   entering: null,
   notice: null,
-  reach: { aether: "unknown", abyss: "unknown", neoverse: "unknown", mythora: "unknown", nexdrive: "unknown" },
+  reach: { aether: "unknown", abyss: "unknown", neoverse: "unknown", mythora: "unknown", nexdrive: "unknown", nexus: "unknown" },
   fullscreen: false,
   explorePointer: false,
 }));

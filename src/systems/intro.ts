@@ -10,7 +10,7 @@ let skipped = false;
 const CAPTIONS: [number, string][] = [
   [1.0, "Before everything, there was a single point of light."],
   [3.4, "It unfolded into a structure beyond measure."],
-  [5.8, "Five gateways. Five realities."],
+  [5.8, "Six gateways. Six realities."],
 ];
 
 export function startIntro() {

@@ -342,10 +342,65 @@ export function NexdriveFrame({ world, state }: FrameProps) {
   );
 }
 
+/* ───────────── NEXUS — orbital Genesis Engine ───────────── */
+export function NexusFrame({ world, state }: FrameProps) {
+  const energy = useEnergy(state, 0.6, 0.8, 1.8);
+  const rings = useRef<Group>(null);
+  const core = useRef<Group>(null);
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime;
+    const speed = 1 + state.hover * 0.8 + state.focus * 1.4;
+    if (rings.current) {
+      rings.current.rotation.set(t * 0.16 * speed, t * 0.25 * speed, t * 0.12);
+      rings.current.children.forEach((ring, i) => {
+        ring.rotation.x += (i % 2 ? -1 : 1) * 0.003;
+      });
+    }
+    if (core.current) {
+      core.current.rotation.set(t * 0.32, t * 0.48, t * 0.2);
+      core.current.scale.setScalar(1 + Math.sin(t * 1.8) * 0.05 + state.focus * 0.12);
+    }
+  });
+  return (
+    <group>
+      <group ref={rings}>
+        {[4.6, 5.7, 6.8].map((radius, i) => (
+          <mesh key={radius} rotation={[i * 0.9, i * 0.6, i * 0.35]}>
+            <torusGeometry args={[radius, i === 1 ? 0.16 : 0.055, 8, 100]} />
+            <meshBasicMaterial color={i === 1 ? world.colors.secondary : world.colors.accent} {...basic} transparent opacity={i === 1 ? 0.75 : 0.9} />
+          </mesh>
+        ))}
+      </group>
+      <group ref={core}>
+        <mesh>
+          <icosahedronGeometry args={[2.1, 1]} />
+          <meshStandardMaterial ref={energy} color="#101832" metalness={0.85} roughness={0.2} emissive={world.colors.primary} emissiveIntensity={0.6} />
+        </mesh>
+        <mesh>
+          <octahedronGeometry args={[1.3, 0]} />
+          <meshBasicMaterial color={world.colors.accent} {...basic} wireframe />
+        </mesh>
+        <pointLight color={world.colors.primary} intensity={18} distance={22} />
+      </group>
+      {Array.from({ length: 6 }, (_, i) => {
+        const angle = (i / 6) * Math.PI * 2;
+        return (
+          <mesh key={i} position={[Math.cos(angle) * 7.7, Math.sin(angle * 2) * 1.4, Math.sin(angle) * 2]}>
+            <octahedronGeometry args={[0.26 + (i % 2) * 0.12, 0]} />
+            <meshBasicMaterial color={i % 2 ? world.colors.accent : world.colors.secondary} {...basic} />
+          </mesh>
+        );
+      })}
+      <RisingParticles count={55} color={world.colors.accent} area={[15, 15, 4]} size={0.13} speed={0.35} />
+    </group>
+  );
+}
+
 export const FRAMES: Record<string, (p: FrameProps) => React.JSX.Element> = {
   aether: AetherFrame,
   abyss: AbyssFrame,
   neoverse: NeoverseFrame,
   mythora: MythoraFrame,
   nexdrive: NexdriveFrame,
+  nexus: NexusFrame,
 };

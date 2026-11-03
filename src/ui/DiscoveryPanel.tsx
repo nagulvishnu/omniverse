@@ -104,7 +104,7 @@ export function DiscoveryPanel({ standalone = false }: { standalone?: boolean })
                 </button>
               )}
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
               {WORLDS.map((w, i) => (
                 <Card key={w.id} w={w} i={i} standalone={standalone} />
               ))}

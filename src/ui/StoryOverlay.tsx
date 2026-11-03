@@ -19,10 +19,10 @@ interface Section {
 }
 const SECTIONS: Section[] = [
   { kicker: "01 · The Beginning", title: "OMNIVERSE", body: "A single point of light, and then everything. This is the gateway that connects every world we have built." },
-  { kicker: "02 · One Central Gateway", title: "The Hub", body: "A place between realities — a platform of light with five doors, each one opening onto a world of its own." },
-  { kicker: "03 · Five Different Realities", title: "Five Worlds", body: "Space. Ocean. City. Myth. Machine. Five independent experiences, each with its own site, its own rules, its own identity." },
-  ...WORLDS.map((w) => ({ kicker: `0${w.index + 4} · ${w.storyTitle}`, title: w.name, body: `${w.tagline} ${w.storyText}`, world: w.index })),
-  { kicker: "09 · Choose Your Reality", title: "Your Move", body: "Return to the hub, walk up to a portal and step through." },
+  { kicker: "02 · One Central Gateway", title: "The Hub", body: "A place between realities — a platform of light with six doors, each one opening onto a world of its own." },
+  { kicker: "03 · Six Different Realities", title: "Six Worlds", body: "Space. Ocean. City. Myth. Machine. Megastructure. Six independent experiences, each with its own site, its own rules, its own identity." },
+  ...WORLDS.map((w) => ({ kicker: `${String(w.index + 4).padStart(2, "0")} · ${w.storyTitle}`, title: w.name, body: `${w.tagline} ${w.storyText}`, world: w.index })),
+  { kicker: `${String(WORLDS.length + 4).padStart(2, "0")} · Choose Your Reality`, title: "Your Move", body: "Return to the hub, walk up to a portal and step through." },
 ];
 
 export function StoryOverlay() {

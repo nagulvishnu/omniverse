@@ -51,7 +51,7 @@ void main(){
   vec3 col = vec3(0.25,0.35,0.8) * (ring*0.35 + ring*pulse*1.2 + grid);
   col += vec3(0.4,0.5,1.0) * exp(-r*0.22) * (0.5 + 0.5*uBurst);
   for(int i=0; i < ${WORLDS.length}; i++){
-    float ai = -1.5707963 + float(i)*1.2566371;
+    float ai = -1.5707963 + float(i)*${(Math.PI * 2 / WORLDS.length).toFixed(7)};
     vec2 dir = vec2(cos(ai), -sin(ai));
     vec2 nrm = vec2(-dir.y, dir.x);
     float along = dot(p,dir), perp = dot(p,nrm);

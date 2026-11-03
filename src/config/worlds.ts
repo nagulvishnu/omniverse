@@ -3,17 +3,17 @@ import abyssArt from "@/assets/abyss.jpg";
 import neoverseArt from "@/assets/neoverse.jpg";
 import mythoraArt from "@/assets/mythora.jpg";
 import nexdriveArt from "@/assets/nexdrive.jpg";
+import nexusArt from "@/assets/nexus.svg";
 
 /**
  * CENTRAL WORLD REGISTRY
  * ----------------------
  * This is the ONLY place in the code base that knows destination URLs.
- * URLs come from environment variables (see .env.example). No URL is ever
- * invented: when a variable is missing / invalid the world is "coming-soon"
- * and the Enter World action is disabled everywhere in the UI.
+ * Environment variables can override the configured destinations (see
+ * .env.example); invalid URLs still disable the Enter World action.
  */
 
-export const WORLD_IDS = ["aether", "abyss", "neoverse", "mythora", "nexdrive"] as const;
+export const WORLD_IDS = ["aether", "abyss", "neoverse", "mythora", "nexdrive", "nexus"] as const;
 export type WorldId = (typeof WORLD_IDS)[number];
 export type Availability = "available" | "coming-soon" | "unavailable";
 
@@ -56,11 +56,12 @@ type RawEnv = Record<string, string | undefined>;
 const env = import.meta.env as unknown as RawEnv;
 
 const RAW_URLS: Record<WorldId, string | undefined> = {
-  aether: env.VITE_AETHER_URL,
-  abyss: env.VITE_ABYSS_URL,
-  neoverse: env.VITE_NEOVERSE_URL,
-  mythora: env.VITE_MYTHORA_URL,
-  nexdrive: env.VITE_NEXDRIVE_URL,
+  aether: env.VITE_AETHER_URL || "https://aether-psi-hazel.vercel.app/",
+  abyss: env.VITE_ABYSS_URL || "https://abyss-three-rust.vercel.app/",
+  neoverse: env.VITE_NEOVERSE_URL || "https://neoverse-khaki.vercel.app/",
+  mythora: env.VITE_MYTHORA_URL || "https://mythora-kappa.vercel.app/",
+  nexdrive: env.VITE_NEXDRIVE_URL || "https://nexdrive-beta.vercel.app/",
+  nexus: env.VITE_NEXUS_URL || "https://nexus-eta-sandy.vercel.app/",
 };
 
 const RAW_STATUS: Record<WorldId, string | undefined> = {
@@ -69,6 +70,7 @@ const RAW_STATUS: Record<WorldId, string | undefined> = {
   neoverse: env.VITE_NEOVERSE_STATUS,
   mythora: env.VITE_MYTHORA_STATUS,
   nexdrive: env.VITE_NEXDRIVE_STATUS,
+  nexus: env.VITE_NEXUS_STATUS,
 };
 
 const PLACEHOLDER_HOST = /(^|\.)(example\.(com|org|net)|invalid|test)$|placeholder|your-|yourdomain|xxxx/i;
@@ -220,6 +222,28 @@ const STATIC: WorldStatic[] = [
     transitionName: "Hyper-speed rings",
     storyTitle: "The Future Moves Here",
     storyText: "Silence, then acceleration. Mobility, rebuilt from the first principle.",
+  },
+  {
+    id: "nexus",
+    index: 5,
+    name: "NEXUS",
+    tagline: "Reality Is Only the First Layer.",
+    category: "Alien Megastructure",
+    description: "Explore a colossal alien architecture built around the dormant Genesis Engine.",
+    teaser: "An impossible structure. A living machine. An engine waiting to wake.",
+    highlights: ["Genesis Engine", "Colossal megastructure", "Interactive discoveries", "Four story chapters"],
+    features: [
+      { label: "Genesis Engine", detail: "Awaken and interact with a mysterious energy core." },
+      { label: "Alien architecture", detail: "Discover a structure built beyond human scale." },
+      { label: "Living machine", detail: "Explore the nodes and systems orbiting the engine." },
+    ],
+    colors: { primary: "#8fa6ff", secondary: "#c07dff", accent: "#dce4ff" },
+    artwork: nexusArt,
+    portal: { shape: 2, pattern: 4 },
+    transition: 2,
+    transitionName: "Genesis pulse",
+    storyTitle: "The Genesis Engine",
+    storyText: "Something beneath the surface noticed you. The engine is dormant, not dead.",
   },
 ];
 
